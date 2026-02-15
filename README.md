@@ -15,3 +15,4 @@ press F11 to open the console, where you can toggle the translation, reload the 
 
 功能：该插件会将游戏大部分文本翻译成中文
 按 F11 打开控制台，你可以切换翻译、重新加载翻译文件（translation.json），并在屏幕上刷新翻译文本，还可以调整翻译的扫描间隔，延长以提升性能，缩短以获得更稳定的体验。
+目前支持的版本：v0.32  不过，理论上来讲只要BepInEx允许，无论是什么版本都能兼容
