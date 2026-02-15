@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NuclearOptionChinese")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+856ca90cdceb34f5dc5a8fb186cd8825ad140ec6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7dfd5ea3aed49c220690a09da644622b543b7964")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nuclear Option Chinese Translation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NuclearOptionChinese")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
