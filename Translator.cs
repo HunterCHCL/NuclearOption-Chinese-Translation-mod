@@ -10,48 +10,59 @@ namespace NuclearOptionChinese
     public static class Translator
     {
         public static bool IsEnabled = true; // 翻译总开关
+        public static bool IsLoggingMissing = true; // 缺失文本记录开关
+        // public static float FontSizeScale = 1.0f; // 字体缩放比例 (1.0 = 100%) (暂时注释)
+        
         private static Dictionary<string, string> _translations = new Dictionary<string, string>(System.StringComparer.OrdinalIgnoreCase);
         private static Dictionary<string, string> _reverseTranslations = new Dictionary<string, string>(System.StringComparer.OrdinalIgnoreCase);
+        private static Dictionary<string, Dictionary<string, string>> _scopedDictionaries = new Dictionary<string, Dictionary<string, string>>(System.StringComparer.OrdinalIgnoreCase);
         private static HashSet<string> _missingTranslations = new HashSet<string>(System.StringComparer.OrdinalIgnoreCase);
         private static Dictionary<string, string> _runtimeCache = new Dictionary<string, string>();
         private static string _translationFilePath = Path.Combine(Paths.PluginPath, "NuclearOptionChinese", "translation.json");
         private static string _missingFilePath = Path.Combine(Paths.PluginPath, "NuclearOptionChinese", "missing.json");
+        private static string _scopesDirPath = Path.Combine(Paths.PluginPath, "NuclearOptionChinese", "scopes");
 
         public static void ClearCache()
         {
             _runtimeCache.Clear();
+            _scopedDictionaries.Clear();
         }
 
-        // 改进后的正则表达式：可用于全局拆分长文本中的数值块
-        // 捕获组1: 分隔符+数字; 捕获组2: 单位; 捕获组3: 闭合符号
-        private static readonly Regex DataBlockRegex = new Regex(@"(\s*(?:[:(/\[]|\s[xX]|\s+|^)\s*\$?[\d.]+\s*)([a-zA-Z/%°]{0,10})(\s*[)\]]?)", RegexOptions.Compiled);
-        
-        // 用于拦截 Day (28) 这种 单词 + (数字) 的模式
-        private static readonly Regex WordWithNumberRegex = new Regex(@"^([a-zA-Z\s]+)\s*[\(\[].*[\)\]]$", RegexOptions.Compiled);
-
-        // 预定义常量正则，优化性能
-        private static readonly Regex TimeRegex = new Regex(@"\d+:\d+", RegexOptions.Compiled);
-        private static readonly Regex PureDataRegex = new Regex(@"^[+\-0-9\s./()\[\]%]+$", RegexOptions.Compiled);
-        // 允许各种正负号、小数、及可选的单位 (不再允许单位中带空格，防止误伤)
-        private static readonly Regex ValueUnitRegex = new Regex(@"^[+-]?\s*\$?\d*[\d.]+\s*[a-zA-Z/%°]{0,6}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        // 关键字后面跟随数字
-        private static readonly Regex SpecialTagRegex = new Regex(@"^(rank|lvl|x|v|capacitor|r\[\d+[a-z]*\])[\s\d:+\-.a-z/%°\[\]]{0,10}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex AlphaValuePrefixRegex = new Regex(@"^[a-zA-Z]:\s*[+-]?\s*\$?\d+[\d.]*[a-zA-Z]*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex ComplexMountRegex = new Regex(@"^\[\d+\][a-zA-Z0-9-/\s]+:\s*\d+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex AircraftCodeRegex = new Regex(@"^[A-Z/]+-?\d+[A-Z]*$", RegexOptions.Compiled);
-        private static readonly Regex CoordinateRegex = new Regex(@"^[A-Z][a-z]\d{2,3}$", RegexOptions.Compiled);
-        // 新增：识别炸弹装药和半径等战斗参数 (如 "400kg TNT", "R[0.0m]")
-        private static readonly Regex TntRegex = new Regex(@"^\d+[\d.]*[a-z]*\s*tnt$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex RadiusRegex = new Regex(@"^r\[\s*\d+[\d.]*[a-z]*\s*\]$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        // 新增：识别 "单位 [数值]" 或 "单位 (数值)" 这种纯数据块
-        private static readonly Regex TagDataRegex = new Regex(@"^[a-zA-Z]+\s*[\[\(]\s*[\d.]+\s*[a-zA-Z/%°]*\s*[\]\)]$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        // 新增：识别仅有一个大写字母跟一个小写字母的模式 (如 Ab, Cd, Xi)
-        private static readonly Regex TwoLetterRegex = new Regex(@"^[A-Z][a-z]$", RegexOptions.Compiled);
+        // --- 核心过滤器正则表达式 (重构版) ---
+        // 1. (可选的正负号/符号) + 纯数字 + (可选的单位)
+        private static readonly Regex ValueUnitNoiseRegex = new Regex(@"^[+-]?\s*\$?\d*[\d.]+\s*[a-zA-Z/°%]{0,6}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 2. 游戏特有的标签数据 (如 x 2, CAPACITOR 8 kJ, V -19.8, $10.0k, 380.1M$, Mag x7.2)
+        private static readonly Regex SpecialTagNoiseRegex = new Regex(@"^(x\s*\d+|capacitor\s*[\d.]+\s*[a-z]*|v\s*[+-]?\s*[\d.]+|[\$¥€]\s*[\d.]+[kKmM]?|[\d.]+[kKmM]\s*[\$¥€]|mag\s*x\s*\d*[\d.]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 3. 特殊排除项/坐标 (如 Hi67, Ji97, Ia, Ff, Jj)
+        private static readonly Regex CoordinateNoiseRegex = new Regex(@"^[A-Z][a-z](\d{1,4})?$", RegexOptions.Compiled);
+        // 4. 分隔符正则 (优先级：特殊专有名词 > Markdown 块 > 双减号 > 单标签 > 符号)
+        private static readonly Regex DelimiterRegex = new Regex(@"(T/A-30|<[^>]+>.*?</[^>]+>|<[^>]+>|--|\s+-\s+|[:/\[\]()|\n\v])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 5. 纯符号/数字备份判定
+        private static readonly Regex PureSymbolsRegex = new Regex(@"^[+\-0-9\s./()\[\]%#@&*|<>—]+$", RegexOptions.Compiled);
+        // 6. 版本号号过滤正则 (匹配: 文本 + version + 可选空格 + 数字.数字.数字)
+        private static readonly Regex VersionFilterRegex = new Regex(@"^(.*?version.*?)\s*(\d+\.\d+\.\d+.*)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 7. 单词+数字过滤正则 (匹配: 纯单词文本 + 空格 + 数字)
+        private static readonly Regex WordNumberRegex = new Regex(@"^([a-zA-Z\s]+)\s+(\d+)$", RegexOptions.Compiled);
+        // 8. 爆炸物载荷过滤正则 (匹配: 数字 + kg/kt + TNT)
+        private static readonly Regex ExplosiveNoiseRegex = new Regex(@"^\d*[\d.]+\s*(kg|kt)\s*tnt$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 9. 末尾数量过滤 (匹配: 文本 + 空格 + x + 数字)
+        private static readonly Regex EndQuantityRegex = new Regex(@"^(.*?)\s+x\d+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 10. 跑道动态信息过滤 (升级版: 匹配 文本 + Runway + 数字 + 随后的距离等内容)
+        private static readonly Regex EndRunwayRegex = new Regex(@"^(.*?\Brunway)\s+\d{1,2}.*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 11. 单词 + 数值单位过滤 (匹配: 文本 + 空格 + 数字 + 单位)
+        private static readonly Regex EndValueUnitRegex = new Regex(@"^(.*?)\s+\d*[\d.]+\s*([a-zA-Z°%]{1,3})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 12. 距离+方向指示符过滤 (如 "434m<", "22km<")
+        private static readonly Regex DistanceIndicatorNoiseRegex = new Regex(@"^\d*[\d.]+\s*(m|km)\s*<$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 13. 纯数值 + 单位模式 (如 "500 rounds", "10 knots")
+        private static readonly Regex NumberUnitOnlyRegex = new Regex(@"^(\d*[\d.]+)\s*([a-zA-Z/°%]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static void LoadTranslations()
         {
             _runtimeCache.Clear();
+            _scopedDictionaries.Clear();
             Plugin.Logger.LogInfo("Clearing runtime cache and loading translations...");
+            
+            // 1. 加载主翻译文件 (Global)
             if (!File.Exists(_translationFilePath))
             {
                 // Create a template if it doesn't exist
@@ -89,7 +100,42 @@ namespace NuclearOptionChinese
                     }
                 }
                 
-                Plugin.Logger.LogInfo($"Successfully loaded {_translations.Count} translations.");
+                Plugin.Logger.LogInfo($"Successfully loaded {_translations.Count} global translations.");
+
+                // 2. 加载 Scopes 目录下的分部件翻译文件 (Priority)
+                if (Directory.Exists(_scopesDirPath))
+                {
+                    string[] scopeFiles = Directory.GetFiles(_scopesDirPath, "*.json");
+                    foreach (string file in scopeFiles)
+                    {
+                        try
+                        {
+                            string scopeName = Path.GetFileNameWithoutExtension(file);
+                            string scopeJson = File.ReadAllText(file);
+                            var scopeDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(scopeJson);
+                            
+                            if (scopeDict != null)
+                            {
+                                var cleanedDict = new Dictionary<string, string>(System.StringComparer.OrdinalIgnoreCase);
+                                foreach (var kvp in scopeDict)
+                                {
+                                    string ck = CleanString(kvp.Key).Trim();
+                                    if (!string.IsNullOrEmpty(ck)) cleanedDict[ck] = kvp.Value;
+                                }
+                                _scopedDictionaries[scopeName] = cleanedDict;
+                                Plugin.Logger.LogInfo($"Loaded scoped translations for: {scopeName} ({cleanedDict.Count} items)");
+                            }
+                        }
+                        catch (System.Exception ex)
+                        {
+                            Plugin.Logger.LogError($"Failed to load scope file {file}: {ex.Message}");
+                        }
+                    }
+                }
+                else
+                {
+                    Directory.CreateDirectory(_scopesDirPath);
+                }
             }
             catch (System.Exception ex)
             {
@@ -119,8 +165,18 @@ namespace NuclearOptionChinese
             {
                 if (!missingDict.ContainsKey(key) && !_translations.ContainsKey(key))
                 {
-                    missingDict[key] = key; // Value defaults to key for easy translation
-                    changed = true;
+                    // 再检查一遍分部件文件，防止刚加了文件但内存还没刷新
+                    bool foundInScope = false;
+                    foreach (var dict in _scopedDictionaries.Values)
+                    {
+                        if (dict.ContainsKey(key)) { foundInScope = true; break; }
+                    }
+                    
+                    if (!foundInScope)
+                    {
+                        missingDict[key] = key; // Value defaults to key for easy translation
+                        changed = true;
+                    }
                 }
             }
 
@@ -131,146 +187,368 @@ namespace NuclearOptionChinese
             }
         }
 
-        public static string Translate(string text)
+        public static string Translate(string text, string scope = null)
         {
             if (string.IsNullOrEmpty(text)) return text;
-
-            // 如果翻译已禁用，尝试将当前可能的中文译文恢复为原文
+            
+            // 0. 特解：如果翻译已禁用，尝试还原原文
             if (!IsEnabled)
             {
-                string cleaned = CleanString(text).Trim();
+                string tagStripped = Regex.Replace(text, @"<[^>]+>", "");
+                string cleaned = tagStripped.Trim();
                 if (_reverseTranslations.TryGetValue(cleaned, out string original))
                 {
-                    return original;
+                    return text.Replace(tagStripped, original);
                 }
                 return text;
+            }
+
+            // 如果有作用域，多级查询优先于全局
+            if (!string.IsNullOrEmpty(scope))
+            {
+                // 1. 优先检查 Scopes 文件夹下的独立文件 (文件名即 Scope 名)
+                if (_scopedDictionaries.TryGetValue(scope, out var scopeDict))
+                {
+                    if (scopeDict.TryGetValue(text, out string sTrans)) return sTrans;
+                    
+                    string cleaned = CleanString(text).Trim();
+                    if (!string.IsNullOrEmpty(cleaned) && scopeDict.TryGetValue(cleaned, out string scTrans)) return scTrans;
+                }
+
+                // 2. 检查主 translation.json 中的 "[Scope]Key" 格式
+                string scopedKey = $"[{scope}]{text}";
+                if (_translations.TryGetValue(scopedKey, out string scopedTrans)) return scopedTrans;
+
+                string cleanedGlobal = CleanString(text).Trim();
+                if (!string.IsNullOrEmpty(cleanedGlobal))
+                {
+                    string scopedCleanedKey = $"[{scope}]{cleanedGlobal}";
+                    if (_translations.TryGetValue(scopedCleanedKey, out string scopedCleanedTrans)) return scopedCleanedTrans;
+                }
             }
 
             if (_runtimeCache.TryGetValue(text, out string cached)) return cached;
 
             string originalInput = text;
 
-            // 彻底清理不可见字符
-            string cleanedText = CleanString(text);
-            string trimmedText = cleanedText.Trim();
-
-            if (string.IsNullOrEmpty(trimmedText)) return text;
-
-            // 1. 精准屏蔽已翻译的中文
-            if (HasChinese(trimmedText))
+            // --- 新逻辑：优先按换行符或垂直制表符切分 ---
+            if (text.Contains("\n") || text.Contains("\u000B"))
             {
-                _runtimeCache[originalInput] = text;
-                return text;
-            }
-
-            // 2. 屏蔽常见的“纯数据”噪音
-            if (IsNoise(trimmedText))
-            {
-                _runtimeCache[originalInput] = text;
-                return text;
-            }
-
-            // 补充：捕捉类似 "Day (28)" 的模式
-            var wordWithNumMatch = WordWithNumberRegex.Match(trimmedText);
-            if (wordWithNumMatch.Success)
-            {
-                string prefix = wordWithNumMatch.Groups[1].Value.Trim();
-                string translatedPrefix = Translate(prefix);
-                if (translatedPrefix != prefix)
-                {
-                    string result = trimmedText.Replace(prefix, translatedPrefix);
-                    _runtimeCache[originalInput] = result;
-                    return result;
-                }
-            }
-            
-            // 3. 【核心】直接匹配字典全句 (支持多行、空格)
-            if (_translations.TryGetValue(trimmedText, out string translated))
-            {
-                _runtimeCache[originalInput] = translated;
-                return translated;
-            }
-
-            // 4. 处理包含换行的多行文本：整句没翻译，再尝试按行翻译
-            if (text.Contains("\n"))
-            {
-                string[] lines = text.Split('\n');
-                bool changed = false;
+                string[] lines = text.Split(new char[] { '\n', '\u000B' });
+                bool lineChanged = false;
+                
+                // 找到所有的分隔符，以便后面重建
+                var matches = Regex.Matches(text, @"[\n\v]");
+                
                 for (int i = 0; i < lines.Length; i++)
                 {
                     string oldLine = lines[i];
-                    string newLine = Translate(oldLine);
+                    if (string.IsNullOrWhiteSpace(oldLine)) continue;
+
+                    string newLine = TranslatePart(oldLine, scope);
                     if (oldLine != newLine)
                     {
                         lines[i] = newLine;
-                        changed = true;
+                        lineChanged = true;
                     }
                 }
-                if (changed)
+                
+                if (lineChanged)
                 {
-                    string joined = string.Join("\n", lines);
-                    _runtimeCache[originalInput] = joined;
-                    return joined;
-                }
-            }
-            
-            // 5. 【递归分段翻译】处理长文本中嵌入的数值单位块 (如: "960 rounds", "25mm", "x2", "R[0.5]")
-            if (HasAnyDigit(trimmedText))
-            {
-                var match = DataBlockRegex.Match(text);
-                if (match.Success)
-                {
-                    string prefix = text.Substring(0, match.Index);
-                    string suffix = text.Substring(match.Index + match.Length);
-
-                    // A. 翻译前半段
-                    string transPrefix = prefix;
-                    if (!string.IsNullOrEmpty(prefix.Trim())) transPrefix = Translate(prefix);
-
-                    // B. 处理并翻译当前数值块的单位
-                    string valPart = match.Groups[1].Value;
-                    string unitPart = match.Groups[2].Value;
-                    string closePart = match.Groups[3].Value;
-                    
-                    string transUnit = unitPart;
-                    if (!string.IsNullOrEmpty(unitPart))
+                    // 重建字符串，保留原始的分隔符
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    for (int i = 0; i < lines.Length; i++)
                     {
-                        string cleanedUnit = unitPart.Trim();
-                        if (_translations.TryGetValue(cleanedUnit, out string foundUnit))
+                        sb.Append(lines[i]);
+                        if (i < matches.Count)
                         {
-                            transUnit = unitPart.Replace(cleanedUnit, foundUnit);
-                        }
-                        else if (IsPureAlpha(cleanedUnit) && !IsNoise(cleanedUnit))
-                        {
-                            if (!_missingTranslations.Contains(cleanedUnit)) _missingTranslations.Add(cleanedUnit);
+                            sb.Append(matches[i].Value);
                         }
                     }
-
-                    // C. 递归翻译后半段 (支持一句话里出现多个动态数据)
-                    string transSuffix = suffix;
-                    if (!string.IsNullOrEmpty(suffix.Trim())) transSuffix = Translate(suffix);
-
-                    string combined = transPrefix + (valPart + transUnit + closePart) + transSuffix;
-                    _runtimeCache[originalInput] = combined;
-                    return combined;
+                    string result = sb.ToString();
+                    _runtimeCache[originalInput] = result;
+                    return result;
                 }
-
-                // 安全网：如果有数字但是没匹配到分段正则，说明这也是个动态文本，不应作为整体录入到 missing.json
                 _runtimeCache[originalInput] = text;
                 return text;
             }
-            
-            // 6. 记录常规全句到缺失 (排除已递归处理掉的短句)
-            if (IsPureAlpha(trimmedText) && !HasChinese(trimmedText))
+
+            // 如果没有换行，直接处理整段
+            string finalResult = TranslatePart(text, scope);
+            _runtimeCache[originalInput] = finalResult;
+            return finalResult;
+        }
+
+        /// <summary>
+        /// 内部处理逻辑：处理单行或非换行文本
+        /// </summary>
+        private static string TranslatePart(string text, string scope = null)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return text;
+            if (HasChinese(text)) return text;
+
+            // --- A. 整体预处理 (长文本/整体字典匹配) ---
+            string stripped = Regex.Replace(text, @"<[^>]+>", "");
+            string trimmed = stripped.Trim();
+            string cleanedKey = CleanString(trimmed).Trim();
+
+            // 整体范围内也优先检查 Scoped Translation
+            if (!string.IsNullOrEmpty(scope))
             {
-                if (!_missingTranslations.Contains(trimmedText) && !_translations.ContainsKey(trimmedText))
+                // 1. Scopes 独立文件优先
+                if (_scopedDictionaries.TryGetValue(scope, out var sDict))
                 {
-                    _missingTranslations.Add(trimmedText);
+                    if (sDict.TryGetValue(cleanedKey, out string st)) return text.Replace(stripped, st);
+                }
+
+                // 2. 主文件格式次之
+                string scopedKey = $"[{scope}]{cleanedKey}";
+                if (_translations.TryGetValue(scopedKey, out string scopedTrans))
+                {
+                    return text.Replace(stripped, scopedTrans);
                 }
             }
-            
-            _runtimeCache[originalInput] = text;
+
+            if (_translations.TryGetValue(cleanedKey, out string wholeTrans))
+            {
+                if (stripped.Length > 0) return text.Replace(stripped, wholeTrans);
+            }
+
+            // --- B. 多级切片逻辑 (优先级：Markdown块 > 单个标签 > 分隔符) ---
+            string[] parts = DelimiterRegex.Split(text);
+            bool changed = false;
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                string p = parts[i];
+                if (string.IsNullOrEmpty(p)) continue;
+                
+                // 1. 如果是基本分隔符（如 : / [ ] 等），跳过
+                if (p.Length == 1 && ":/[]()|\n\v".Contains(p)) continue;
+
+                // 2. 处理标签部分
+                if (p.StartsWith("<") && p.EndsWith(">"))
+                {
+                    // 如果是标签块 (如 <b>111</b>)，尝试提取内部文本进行递归翻译
+                    var tagMatch = Regex.Match(p, @"^(<([^>]+)>)(.*)(</\2>)$");
+                    if (tagMatch.Success)
+                    {
+                        string openTag = tagMatch.Groups[1].Value;
+                        string content = tagMatch.Groups[3].Value;
+                        string closeTag = tagMatch.Groups[4].Value;
+
+                        string translatedContent = TranslatePart(content, scope);
+                        if (translatedContent != content)
+                        {
+                            parts[i] = openTag + translatedContent + closeTag;
+                            changed = true;
+                        }
+                    }
+                    continue; // 单个标签 (如 <b>) 或已处理的块，跳过
+                }
+
+                // 3. 处理纯文本部分
+                string trimmedP = p.Trim();
+                if (string.IsNullOrEmpty(trimmedP) || HasChinese(trimmedP)) continue;
+
+                // a. Scoped Part Translation
+                if (!string.IsNullOrEmpty(scope))
+                {
+                    // Scopes 独立文件
+                    if (_scopedDictionaries.TryGetValue(scope, out var pDict))
+                    {
+                        if (pDict.TryGetValue(trimmedP, out string pt))
+                        {
+                            parts[i] = p.Replace(trimmedP, pt);
+                            changed = true;
+                            continue;
+                        }
+                    }
+
+                    // 主文件 [Scope] 格式
+                    string scopedKey = $"[{scope}]{trimmedP}";
+                    if (_translations.TryGetValue(scopedKey, out string scopedTrans))
+                    {
+                        parts[i] = p.Replace(trimmedP, scopedTrans);
+                        changed = true;
+                        continue;
+                    }
+                }
+
+                // b. 尝试字典匹配
+                if (_translations.TryGetValue(trimmedP, out string translatedP))
+                {
+                    parts[i] = p.Replace(trimmedP, translatedP);
+                    changed = true;
+                }
+                else
+                {
+                    // c. 尝试模式匹配
+                    bool handled;
+                    string patternResult = ApplyPatterns(p, out handled);
+                    if (patternResult != p)
+                    {
+                        parts[i] = patternResult;
+                        changed = true;
+                    }
+                    else if (!handled)
+                    {
+                        // d. 最后：如果不是噪音，则记录缺失
+                        if (!IsPartNoise(trimmedP)) TryRecordMissing(trimmedP);
+                    }
+                }
+            }
+
+            return changed ? string.Concat(parts) : text;
+        }
+
+        private static string ApplyPatterns(string text, out bool handled)
+        {
+            handled = false;
+
+            // 1. 版本号号
+            if (text.IndexOf("version", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                var match = VersionFilterRegex.Match(text);
+                if (match.Success)
+                {
+                    handled = true;
+                    string prefix = match.Groups[1].Value.Trim();
+                    if (_translations.TryGetValue(prefix, out string trans)) return text.Replace(prefix, trans);
+                    TryRecordMissing(prefix);
+                    return text;
+                }
+            }
+
+            // 2. 末尾跑道 (升级版)
+            var erMatch = EndRunwayRegex.Match(text);
+            if (erMatch.Success)
+            {
+                handled = true;
+                string prefix = erMatch.Groups[1].Value.Trim();
+                if (_translations.TryGetValue(prefix, out string trans)) return text.Replace(prefix, trans);
+                TryRecordMissing(prefix);
+                return text;
+            }
+
+            // 3. 单词 + 数值单位 (SPD 10km)
+            var evuMatch = EndValueUnitRegex.Match(text);
+            if (evuMatch.Success)
+            {
+                handled = true;
+                string prefix = evuMatch.Groups[1].Value.Trim();
+                if (IsPartNoise(prefix)) return text;
+                
+                if (_translations.TryGetValue(prefix, out string trans)) return text.Replace(prefix, trans);
+                TryRecordMissing(prefix);
+                return text;
+            }
+
+            // 4. 末尾数量 (x2)
+            var eqMatch = EndQuantityRegex.Match(text);
+            if (eqMatch.Success)
+            {
+                handled = true;
+                string prefix = eqMatch.Groups[1].Value.Trim();
+                if (_translations.TryGetValue(prefix, out string trans)) return text.Replace(prefix, trans);
+                TryRecordMissing(prefix);
+                return text;
+            }
+
+            // 5. 单词 + 数字 (Rank 1)
+            var wnMatch = WordNumberRegex.Match(text);
+            if (wnMatch.Success)
+            {
+                handled = true;
+                string prefix = wnMatch.Groups[1].Value.Trim();
+                if (_translations.TryGetValue(prefix, out string trans)) return text.Replace(prefix, trans);
+                TryRecordMissing(prefix);
+                return text;
+            }
+
+            // 6. 纯数值 + 单位 (500 rounds)
+            var nuMatch = NumberUnitOnlyRegex.Match(text);
+            if (nuMatch.Success)
+            {
+                string value = nuMatch.Groups[1].Value;
+                string unit = nuMatch.Groups[2].Value;
+                
+                if (_translations.TryGetValue(unit, out string transUnit))
+                {
+                    handled = true;
+                    return text.Replace(unit, transUnit);
+                }
+                // 这里不设置 handled = true，让它流向最后的 IsPartNoise 判定
+                // (如果 unit 是 "m" 这种噪音，就不会录入缺失)
+            }
+
             return text;
+        }
+
+        /* 
+        private static string WrapSize(string text)
+        {
+            if (FontSizeScale == 1.0f || string.IsNullOrEmpty(text) || text.Contains("<size=")) return text;
+            return $"<size={FontSizeScale * 100:F0}%>{text}</size>";
+        }
+        */
+
+        private static void TryRecordMissing(string text)
+        {
+            if (!IsLoggingMissing || string.IsNullOrEmpty(text)) return;
+
+            // 特殊处理 Version：剥离版本号，只保留文本部分进入 Missing
+            if (text.IndexOf("version", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                var vMatch = VersionFilterRegex.Match(text);
+                if (vMatch.Success)
+                {
+                    text = vMatch.Groups[1].Value.Trim();
+                }
+            }
+
+            // 特殊处理 单词 + 数字：剥离数字部分，只保留文本部分进入 Missing
+            var wnMatch = WordNumberRegex.Match(text);
+            if (wnMatch.Success)
+            {
+                text = wnMatch.Groups[1].Value.Trim();
+            }
+            
+            if (HasChinese(text) || !IsPureAlpha(text)) return;
+            
+            if (!_missingTranslations.Contains(text) && !_translations.ContainsKey(text))
+            {
+                _missingTranslations.Add(text);
+            }
+        }
+
+        private static bool IsLongText(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return false;
+            int spaces = 0;
+            bool lastWasSpace = false;
+            foreach (char c in text)
+            {
+                if (char.IsWhiteSpace(c))
+                {
+                    if (!lastWasSpace) spaces++;
+                    lastWasSpace = true;
+                }
+                else lastWasSpace = false;
+            }
+            return spaces >= 5; // 5个空格即判断为 6个词
+        }
+
+        private static bool IsPartNoise(string p)
+        {
+            if (p.Length <= 1) return true;
+            if (ValueUnitNoiseRegex.IsMatch(p)) return true;
+            if (SpecialTagNoiseRegex.IsMatch(p)) return true;
+            if (CoordinateNoiseRegex.IsMatch(p)) return true;
+            if (PureSymbolsRegex.IsMatch(p)) return true;
+            if (ExplosiveNoiseRegex.IsMatch(p)) return true;
+            if (DistanceIndicatorNoiseRegex.IsMatch(p)) return true;
+            return false;
         }
 
         /// <summary>
@@ -280,7 +558,6 @@ namespace NuclearOptionChinese
         {
             if (string.IsNullOrEmpty(text)) return text;
             
-            // 只有发现特殊字符时才进行昂贵的替换操作
             bool hasSpecial = false;
             for (int i = 0; i < text.Length; i++)
             {
@@ -297,9 +574,9 @@ namespace NuclearOptionChinese
                        .Replace("\uFEFF", "")
                        .Replace("\u200E", "")
                        .Replace("\u200F", "")
-                       .Replace("\u000B", " ") // 垂直制表符换成空格
-                       .Replace("\r", "")      // 移除回车
-                       .Replace("\t", " ");    // 制表符换成空格
+                       .Replace("\u000B", " ")
+                       .Replace("\r", "")
+                       .Replace("\t", " ");
         }
 
         public static bool HasChinese(string text)
@@ -307,65 +584,14 @@ namespace NuclearOptionChinese
             if (string.IsNullOrEmpty(text)) return false;
             foreach (char c in text)
             {
-                // CJK 统一汉字范围：0x4E00 - 0x9FFF
                 if (c >= '\u4E00' && c <= '\u9FFF') return true;
-                // 常见的中文字符/标点
                 if (c >= '\u3000' && c <= '\u303F') return true;
             }
             return false;
         }
 
-        private static bool IsNoise(string text)
-        {
-            if (text.Length <= 1) return true; // 单个字符通常是 X, ?, 或者特殊符号
-            if (TwoLetterRegex.IsMatch(text)) return true; // 一大一小两个字母屏蔽
-            
-            string lower = text.ToLower();
-            // 屏蔽版本号、链接、服务器列表关键词
-            if (lower.Contains("version") || lower.Contains("v0.") || lower.Contains("discord.gg") || lower.Contains("http")) return true;
-            if (text.Contains("|") && (text.Contains("PvE") || text.Contains("PvP"))) return true; 
-
-            if (text.EndsWith("ms") && HasAnyDigit(text)) return true; // 延迟
-            if (text.Contains(":") && TimeRegex.IsMatch(text)) return true; // 时间
-            
-            // 1. 纯数字/符号组合如 "[7 / 16]", "0.32.6", "+1.7", "-24"
-            if (PureDataRegex.IsMatch(text)) return true; 
-
-            // 2. 数值 + 单位 (如 250kg, $1.74m, 140km/h, +1.7m/s, 9kJ, +0.91 m/s)
-            if (ValueUnitRegex.IsMatch(text)) return true;
-
-            // 3. 带有任何富文本标签的数值 (如 "<color=#00FFFF>77km</color>", "<b>10</b>")
-            if (text.StartsWith("<") && text.EndsWith(">") && text.Contains("</"))
-            {
-                // 剥离所有标签后检查剩余内容是否为噪音
-                string stripped = Regex.Replace(text, @"<[^>]+>", "").Trim();
-                if (string.IsNullOrEmpty(stripped) || IsNoise(stripped)) return true;
-            }
-
-            // 4. 游戏特有的标签数据 (如 "Rank 5", "x 0", "V -19.8", "CAPACITOR 8  kJ")
-            if (SpecialTagRegex.IsMatch(lower)) return true;
-
-            // 5. 带有单字母前缀的数值，如 "C: $10.0k", "M: 500"
-            if (AlphaValuePrefixRegex.IsMatch(text)) return true;
-
-            // 6. 复杂的挂载点数据 (如 "[2]IRM-S2: 2", "[0]GUN 27MM: 540")
-            if (ComplexMountRegex.IsMatch(text)) return true;
-
-            // 7. 常见的机型代号 (如 T/A-30, CI-22, PAB-125)
-            if (AircraftCodeRegex.IsMatch(text)) return true;
-
-            // 8. 特殊坐标/ID格式 (如 Hi67, Ji97, Ia92)
-            if (CoordinateRegex.IsMatch(text)) return true;
-
-            // 9. 战斗参数噪音 (如 400kg TNT, R[0.0m], Tank (500L))
-            if (TntRegex.IsMatch(text) || RadiusRegex.IsMatch(text) || TagDataRegex.IsMatch(text)) return true;
-
-            return false;
-        }
-
         private static bool IsPureAlpha(string text)
         {
-            // 检查是否包含至少一个英文字母，防止记录纯符号
             foreach (char c in text)
             {
                 if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) return true;

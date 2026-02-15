@@ -1,455 +1,115 @@
-Virtual Joystick Sensitivity
-Weapon Safety Lock while Map Maximized
-Allow Controller Menu Navigation
-Use TrackIR inputs for cockpit camera
-Invert Throttle Control when used as Collective
-Use Throttle Relative Axis
-Use Throttle Axis Negative Region
-Invert Pitch for View Controls
-Invert Virtual Joystick Pitch
-Use Virtual Joystick (Mouse Flight Controls)
-Open Control Bindings Menu
-BINDING SETTINGS
+Hunter-C2H4Cl​
+AA-nn
+TA30
+RDR
+TRUCK
+LCV
+AAA
+MBT
+AMMO
+TARGET SELECTION
+AIR
+RESET
+FILTER
+GND
+BLD
+IR SAM
+MSL
+SHP
+CLEAR
+TARGETS
+APC
+TBM
+R SAM
+TARGET
+TOOLTIP
+TINY
+INFO
+AIRBASE
+LARGE
+MAP OPTIONS
+ICONS
+LABELS
+ORDERS
+PILOT
+SMALL
+MARKERS
+JAMMING
+MANPOWER
+VALUE
+LOSSES
+RESERVES
+PLAYERS
+NON-NUCLEAR
+Rank
 Hunter-C2H4Cl
-Imperial
-Metric
-Enemy
-Friendly
-Player
-None
-Ships
-Building
-Vehicles
-Aircraft
-Munitions
-Minimum Value
-Number of Lines
-Buttons
-Mouse
-Axis
-Radial Menu
-Automatic camera NVG
-VTOL
-Landing Camera
-Show HitMarkers
-TacScreen always IR
-Target Padlock
-Zoom in on Boresight Targets
-External Field of View
-Cockpit Field of View
-Cockpit camera inertia
-KILL FEED OPTIONS
-UNIT SYTEM
-Jammed Noise
-Missile Alert
-Radar Warning
-Interface Volume
-Effects Volume
-Music Volume
-Master Volume
-AUDIO SETTINGS
-Debug Visualizations
-Cinematic Mode
-Clouds Detail
-VSync
-Windowed Display
-VARIOUS OPTIONS
-High
-SHADOWS QUALITY
-TEXTURE QUALITY
-Low
-Medium
-Ultra
-Off
-Distance to hide HMD
-Top panel position
-Side panels position
-Height
-Width
-HMD SETTINGS
-Show
-Fuel and Throttle gauges :
-Lag
-Gun aiming pip type :
-Local
-Time displayed on HUD
-HUD SETTINGS
-Unit Icon Size
-Overlay Text Size
-HMD Text Size
-HUD Text Size
-COMMON SETTINGS
-Lead
-Hide
-Text To Speech Volume
-Text To Speech Speed
-Text To Speech Enabled
-Profanity filter
-Chat Enabled
-CHAT SETTINGS
-Test TTS Speed
-Mouse Button 3
-Right Mouse Button
-Mouse Wheel
-Mouse Horizontal
-Mouse Vertical
-Left Mouse Button
-Mouse Button 4
-Mouse Button 5
-ESC
-Page Down
-Page Up
-Keypad 4
-Keypad 6
-Keypad 2
-Keypad 8
-Keypad 5
-Tab
-Back Quote
-Control + Shift + E
-Backspace
-Return
-Down Arrow
-Up Arrow
-Left Shift
-Space
-Radial Menu Down
-Radial Menu Up
-Radial Menu Vertical
-Radial Menu Left
-Radial Menu Right
-Radial Menu Horizontal
-Move Map Down
-Move Map Up
-Move Map Vertical
-Move Map Left
-Move Map Right
-Move Map Horizontal
-Open Chat
-Toggle Map
-Toggle Slow Motion
-Pause
-Gameplay
-Look At Target
-Jump to Enemy Aircraft
-Look At Enemy Aircraft
-Camera Jump
-Move Down
-Move Up
-Move Vertical
-Move Left
-Move Right
-Move Lateral
-Move Backward
-Move Forward
-Move Longitudinal
-Decrease FoV
-Increase FoV
-Field of View
-Free Look
-Zoom Out
-Zoom In
-Zoom View
-Pan Left
-Pan Right
-Pan View
-Tilt Down
-Tilt Up
-Tilt View
-Switch View
-Center View
-Camera Controls
-Axis Modifier
-Toggle Navigation Lights
-Toggle Radar
-Toggle Night Vision
-Toggle Gear
-Toggle Flight Assist
-Toggle Engine
-Eject
-Open Radial Menu
-Countermeasures
-Next Countermeasure
-Toggle Turret Control
-Link Guns
-Previous Weapon
-Next Weapon
-Open Weapon Wheel
-Target Cancel
-Target Select
-Fire
-Custom Axis 1 Down
-Custom Axis 1 Up
-Custom Axis 1
-Brake Axis -
-Apply Brakes
-Brake Axis
-Decrease Throttle
-Increase Throttle
-Throttle Axis
-Yaw Left
-Yaw Right
-Yaw Axis
-Roll Left
-Roll Right
-Roll Axis
-Pitch Down
-Pitch Up
-Pitch Axis
-Flight Controls
-Controller
-Keyboard
-Actions
-Debug
-Chat
-Game
-Categories:
-Assigned Controllers:
-Assign Controller
-Calibrate
-Remove
-Controller:
-Restore Defaults
-Done
-PvE
-PvP
-Launch from an aircraft carrier and tackle a diverse set of targets in a versatile aircraft.
-Fly the SFB-81 Darkreach on a bombing mission to destroy a PALA vehicle depot on a heavily defended airbase.
-Fly an SAH-46 Chicane under the radar to eliminate an enemy forward arming and refueling point.
-Use various SEAD/DEAD abilities unique to the EW-25 Medusa to facilitate an attack against a heavily defended ammo dump.
-Prevent a column of vehicles from crossing the bridge to Boscali Island, before neutralizing the attack at its source.
-Fly the T/A-30 Compass in an intense dogfight - your side is outnumbered 8 to
-Use the FS-12 Revoker to intercept a volley of cruise missiles launched at your base from Primeva.
-In preparation for a large air raid, use the SAH-46 Chicane to neutralise several long range SAM systems.
-Back to basics with bombs & guns on a CI-22 Cricket in a low-intensity engagement.
-Fly a T/A-30 Compass on a ground attack mission. Use missiles, rockets, bombs and guns to destroy a BDF convoy of lightly defended vehicles.
-After the success of operation Point Blank, the BDF looks to take ground inside Agrapol and establish a new forward base.
-Use the versatile VL-49 Tarantula - first in delivering units to capture a location, and then as a gunship to provide heavy fire support.
-An opportunity arises to take possession of a valuable piece of sea mining infrastructure. PALA and BDF try to beat each other to the punch.
-Fly the A-19 Brawler in a demanding, high tempo close air support mission as BDF narrowly defend Maris Airport against a massive PALA armoured assault.
-Learn how to defeat semi-active radar homing missiles. For this lesson you will be piloting the T/A-30 Compass trainer aircraft.
-Learn how to use flares to defeat IR missiles. For this lesson you will be piloting the T/A-30 Compass trainer aircraft.
-Learn how to designate targets and use missiles to destroy them. For this lesson you will be piloting the T/A-30 Compass trainer aircraft.
-Learn how to prepare for and perform a landing. For this lesson you will be piloting the T/A-30 Compass trainer aircraft.
-Learn how to manage throttle, brake and rudder to safely taxi to the runway, before conducting your first take off. For this lesson you will be piloting the T/A-30 Compass trainer aircraft.
-"War? No. This is merely a peacekeeping initiative."
-Low intensity fighting over the disputed zone. Each side operates from a single forward airbase and must destroy the other's. Aircraft are restricted to counter-insurgency platforms, trainers, helicopters, and transports. No medium or long range air-to-air missiles are available. Air battles are resolved either with guns, or the relatively short ranged IRM-S1.
-Challenging co-op mission where PALA provokes the BDF navy, and must defend Vigil Cay airbase from a naval attack.
-A pure air & sea battle between two carrier groups. Boscali's Annex Class Assault Carrier vs Primeva's Hyperion Class Fleet Carrier, with their respective compliments of aircraft.  The first side to sink the other's carrier wins. All 36 carrier aircraft are available immediately, and cannot be replaced easily if shot down. Fly, fight, and land with care.
-A combined-arms battle on the eastern half of the map, limited to smaller aircraft. Each side has one main airbase and one forward airbase, with naval assets watching the flanks.
-A battle for air superiority fought between two large airbases, using high-end assets. Rank 3 aircraft available at start.
-An enormous, high intensity war of attrition with all airbases active and using all available assets.  Successively more powerful aircraft, and eventually thermonuclear weapons, are unlocked by increasing individual and team point score respectively.
-Victory is acheived when all enemy aircraft factories are destroyed and the enemy side's aircraft carrier, which will arrive midway through the battle, is sunk.
-A campaign of island hopping, in which BDF and PALA fight for control of the Ignus Archipelago.  Your mission is to take and hold the Feldspar International Airport and surrounding smaller airstrips, and to sufficiently degrade the enemy's ability to launch further attacks.
-In this intense hybrid of Escalation and mission-based scenarios, players will need to complete objectives as they move around the map, while facing PALA forces that have a significant advantage.
-Absolute Escalation takes place several months after the events of Total Escalation. Several units of the BDF that were out of the country when PALA won the Boscali war have returned. The BDF needs to make landfall and work to gather resources to liberate their territory and ultimately defeat PALA once and for all.
-The initial stage of the mission is more scripted. It involves two amphibious landing operations; which will require you to assist friendly ground forces. Then, you will make your way north, capturing factories and working you way around to the city. Once you liberate the city, many additional objectives will be made available. These objectives include destroying PALA's resource gathering infrastructure, oil rigs, and a reinforced underground base.
-In this intense hybrid of Escalation and mission-based scenarios, players are thrust into the midst of a full-scale surprise attack by an overwhelming BDF force. With a massive production base and strategic advantages, including an aircraft carrier, a weaponized oil rig, and a sophisticated air defence network, the BDF has a significant advantage.
-This mission is designed for **high difficulty**, especially when played solo. Success relies on effective teamwork; players must coordinate with allies to identify and exploit the BDF's vulnerabilities.
-Prepare for a relentless battle where teamwork and strategy are your best weapons in turning the tide against the BDF.
-Pilots, the day is finally upon us. Phase 2 of Operation Phoenix can now begin. With the reinforcements from BNS Benevolence, we now have enough of a fighting force to retake our homeland.
-We will start by clearing out hostile units at North Boscali AFB, and will send an assault team to capture it once its neutralized. Alligator Team, you will be part of the assaulting force, which will consist of a rotary wing attack via SAH-46 Chicanes from the Benevolence. You'll have to deal with the AA systems by yourselves as we prepare other helos, however.
-Taking one of the PALA's airbases is sure to draw a high amount of attention. Strike quickly, and be ready for anything....
-General Quarters! General Quarters! All hands, man your battle stations! All pilots, report to Briefing Room 1 immediately!
-Good morning aviators! Today, we make the second stage of the journey to the Last Hope Air Station in order to link up with BDF remnant resistance forces there. Successful completion of this mission will allow us to bolster our capabilities by an extreme margin. It may even give us the power to make some real offensive headway...
-Of course, with this capability on the mind, the PALA has increased their monitoring efforts to track down our location. The fake name "MV Eminent Star" won't hold forever, so I want Combat Air Patrol around the carrier at all times to screen for incoming aircraft and other threats.
-Locust 1, you're in the air first. Other squadrons will be up and in the air within the next few minutes after your departure.
-Ok pilots, let's run this sprint all the way to the finish line. Godspeed.
-You have been called to the briefing room for an urgent mission. There has been a lot of radio noise on specific channels ever since your attack on the oil refinery and the port. We believe that this may be the signature of a prototype PALA EW station, and the goal of this mission will be to destroy its emitter, which doubles as its database.
-However, we are unaware of its exact location. The only thing we were able to extrapolate was a very large approximate range where the source could be, which is in the Primevan homeland.
-Intercepted radio communications suggest that several PALA airbases are either currently getting resupplied with munitions and aircraft parts, or getting runways and taxiways resurfaced. CAP shouldn't be a problem, but fly safe regardless...
-It would appear that your actions have drawn some attention. We intercepted a transmission from an unknown source stating a plan to move a PALA armored unit into the area around North Boscali Airbase in an attempt to search for our base. It is for this reason that you will strike two targets:
-1: A lightly defended Petroleum Refinement Facility captured yesterday by the PALA
-2: A tank unit staged inside a half-constructed port and FOB captured and partially rebuilt by the PALA
-Successful accomplishment of these missions will be able to stall their investigation efforts for a considerable period of time, enough time to start recruiting additional hands. After all, you can't keep doing everything yourself Capt. McConnell!
-With all this in mind, it'll be important to keep your head on a swivel. There are reports of an unknown amount of mid-range radar SAMs being set up in the captured lands, so don't fly too high. Additionally, keep an eye out for CAP. You've got their attention, don't let them get the jump on you...
-The official report was received 3 hours ago. The nation of Boscali has been absorbed by the invading PALA forces. Situational reports stopped along with the announcement of surrender. The remaining BDF forces fighting the Primevan war machine are in hiding if they aren't already destroyed.
-Today, you will be embarking on a multi-stage operation to grow our strength at the Last Hope Air Station and to take the fight to our oppressors. However, first we need to know our surroundings. This is where you come in...
-The nation of Boscali is crumbling. After years of fighting, and after countless losses on both sides, the PALA has broken our defenses and is pushing for our capital, Port Maris. K92 airstrip has been lost, Maris Int'l Airport has spotted a large column of tanks and mechanized infantry approaching. We lost contact with North boscali Airbase after it reported a PALAN Aircraft Carrier in the vicinity. The last surviving base is the General Aviation strip in Nexus Point. A large PALA strike is inbound, defend SBGA with whatever you can...
-Loading Mission...
-PALA
-Aircraft : AA-nn
-Select Home Airbase...
-SPD 0km/h
-LABEL
-Welcome to Nuclear Option Early Access 0.32!
-DEVELOPMENT ROADMAP
-COMING SOON
-CONCEPT STAGE
-IN DEVELOPMENT
-The SAH-46 Chicane is much better protected against gunfire and shrapnel than other aircraft.
-QoL - Did you know?
-The Annual Feldspar Marathon passes through most of Feldspar City and West Feldspar. Not to be confused with the Annual Feldspar Derby, a horse race.
-Nuclear warheads are stored in storage bunkers and hardened shelters at each airbase.
-Aircraft equipped with rotors can autorotate when the engines lose power, in order to make a safe landing.
-Lofting or 'toss bombing' refers to releasing munitions while climbing upward to extend their range. This technique can allow you to effectively 'throw' bombs over terrain features while remaining hidden behind them.
-Aircraft with turreted optical arrays have excellent visual detection capability, and can spot targets from much further away.
-Advanced drones can operate fully autonomously, performing actions with impossible reaction speed and maneuvers that no human pilot could survive.
-Pressing the Center View key while in orbit view will enable chase mode, with ten camera position presets.
-Pressing the Center View key while Target Padlock is enabled will automatically lock the camera to a single selected target.
-The maximum range of a missile does not always equal its effective range.
-The UH-90 Ibis' rotary launcher can hold a variety of missiles, with a mechanism that strongly resembles a firearm's drum magazine.
-The A-19 Brawler is a heavily armed and armored aircraft with twin propfans, specializing in the Close Air Support (CAS) role. Its impressive weapons payload of bombs, missiles, and rockets, as well as a variety of internal and mounted cannons, make it a serious threat to any ground unit.
-The external AGM-48 x4 mount is designated RLS-4BR48. We're not sure what that means.
-High-performance fighter aircraft such as the FS-12, FS-20, and KR-67 have relaxed or negative stability, requiring the onboard fly-by-wire system to keep the aircraft from losing control.
-Since they have no crew, unmanned ground vehicles cannot capture and control locations.
-Navigation and formation lights do not turn off at nighttime (between 1800 and 0600 hours).
-The pods for AGR-18 Lynchpins are designated RLS-74X.
-Nuclear weapons appear larger than other munitions on the map, to increase situational awareness.
-Some surface-to-air missile launchers, such as StratoLance R9 launchers, require a nearby radar truck to provide search and targeting information to the missile.
-If a vehicle is deployed from an aircraft's cargo bay while still airborne, it will deploy with a parachute frame to land safely.
-Aircraft without a built-in defensive jammer can take a DJP-10 ECM Pod on an external hardpoint to help defeat radar guided missiles.
-Altitude and climb rate readings show additional decimals when the value is relatively low.
-Cooling towers, which are large, industrial buildings that expel the heat generated by a power plant or factory, are large enough to hide an aircraft inside of.
-Alchten, the capital city of Sloanau, has much of its residential district situated underground to conserve heat during harsh winters.
-Though civilian vehicles are fully electric, most military vehicles still rely on hydrogen fuel cells or synthetics.
-The ALND-4 can withstand a hit from a single IRM-series air-defense missile before being shot down.
-The AAM-36 Scimitar can reach a top speed of over Mach 4 and hit aerial targets over 100km away, thanks to its ramjet engine. Though its close-range performance can be lacking, it is an excellent missile for Beyond Visual Range (BVR) engagements.
-The 30mm Chaingun Turret has less ammunition than its rotary sibling, but fires faster, armor-piercing FLEAT rounds that can debilitate and destroy armored vehicles.
-Flying 'nap-of-the-earth' refers to using folds in the terrain such as valleys to hide from radar coverage.
-Though technically incorrect, many consider supercorporations such as QuantTech, General Defense, and LockMartin to have their own GDP.
-The UH-90 Ibis can carry two fully loaded squads of special forces infantry in its cargo bay, which give the helicopter the ability to capture airbase points.
-Laser designators on aircraft cover all angles, so only line-of-sight is required after launch. An acquisition cone is required on launch because the seekers on the munitions have limited vision.
-Large targets such as factories, power plants, and capital ships are best destroyed with heavy munitions, such as bombs or cruise missiles.
-Radar-equipped aircraft can locate surface-based radar emission sources via triangulation. Airframes with advanced detection modules, such as the EW-25 Medusa, are also able to detect aircraft instantly via trilateration of received emissions.
-Helicopter rotor blades can bend under heavy loads.
-Laser effectiveness is affected by distance. Shorter ranges will enable them to deliver much more energy to a target.
-The AFV8 SAM and Linebreaker SAM fire IRM-S2 standard IR missiles, while the Hexhound SAM, LCV25 AA, and AFV6 AA fire the shorter-ranged IRM-S1 MANPADS.
-Though the Tranche Class Frigate is primarily designed for fleet air-defense, it also serves as a capable independent bluewater combat vessel.
-The 1.5kt GPO-N deploys a parachute to slow it down and enable lay-down delivery at very low altitude and high speed.
-The Counter Rocket And Mortar (or CRAM) turret mounted to HLT and MSV series trucks can intercept munitions within a 3500m radius around a strategic target with its 20mm rotary cannon firing at upwards of 3000 rounds per minute.
-The ARAD-116 is an advanced anti-radiation missile, designed to automatically detect and guide towards enemy radar sources. It is capable of coordinating with other anti-radiation missiles to evenly split enemy radar targets if launched without a designated target.
-The FS-3 Ternion entered service in 2011, and has recieved continuous upgrades ever since, maintaining a formidable battlefield presence despite the airframe's age.
-The PRJ-60 Passive Jammer module can be mounted on large aircraft to significantly reduce their RCS via advanced de-amplification technology.
-Emitting radar lets you detect targets at long distance, but can also give away your position. Aircraft equipped with radar can turn it on or off with the Toggle Radar key.
-The Type-12K MBT is equipped with a 20mm autocannon in a secondary turret, for light anti-vehicle and anti-drone purposes.
-Factory buildings produce and supply a faction with ground vehicles, weapons, and airframes. With enough rank, some aircraft can become free to requisition.
-Pressing the Eject key while flying a drone will cause it to self-destruct.
-In-air refueling is a dangerous task and should be done carefully.
-The AGM-200 Tusko is a supersonic stand-off missile, using a quasi-ballistic trajectory to reach its target at very high speed. It relies on datalink navigation, and may not hit its target if the known position is not updated by friendly sensors.
-The M12 Jacknife is an unmanned combat engineering vehicle designed for airborne troops to fortify remote locations and repair airbase structures. Despite only weighing 6 tons, it can use its internal capacity as ballast when earthmoving.
-Long-range radar missile batteries can optionally include a fire-control truck, which links with the existing radar to improve missile allocation and firing parameters.
-Holding the Weapon Wheel key for one second will show the Weapon Wheel, which provides immediate access to all weapon stations on the aircraft.
-A TBM-3 Piledriver may cross the Karman line at the top of its ballistic flight.
-When in a situation where there is no time to notch and jam an incoming missile, firing an IR to intercept it is a good idea.
-Though parachutes can slow cargo down, deploying them too low or too fast can still destroy the container or vehicle.
-The PAB-80LR's small size allows it to be fitten into most internal weaopns bays, allowing stand-off capability for stealth aircraft.
-Cloud cover and the sun affect the tracking of IR missiles and the effectiveness of flares.
-Some ordnance can automatically find and relock their targets with onboard sensors if datalink detection is lost.
-Never underestimate a Cricket.
-Missiles can stall themselves by pulling too hard when engaging a target. Aircraft can take advantage of this in close-range dogfights by turning towards the missile.
-All aircraft are designed with some degree of stealth in mind. Many feature chines and other stealth geometry, as well as radar-absorbing skin material.
-The AGM-98 is a subsonic anti-ship cruise missile, with a supersonic terminal phase. It uses an evasive pattern as well as a random top attack to confuse its target's air defenses.
-Reducing fuel load can significantly improve aircraft flight characteristics.
-The Radar Cross Section (RCS) of an aircraft will decrease when it uses weapons on its external pylons. Most single-weapon pylons can return to a net RCS of 0 when the weapon is expended.
-Aircraft should be fuel serviced with MIL-T-83133 Grade NO JP-8 Aviation Fuel. If not available, refer to TB 95-3847-300-10 for alternate fuel.
-Aircraft internal jammers operate with varying levels of strength and effectiveness, typically dependent on the available space for jamming equipment within the airframe itself, and the aircraft's power generation capability.
-Ground vehicles are produced by factories, added to the faction's inventory, and deployed from friendly vehicle depots.
-Information is extremely useful and should be prioritized by emphasizing friendly radar coverage and destroying enemy sensor installations.
-Locations can be captured if more friendly manpower is present than enemy. The time it takes to capture is proportional to the imbalance of manpower, as well as the number of buildings present.
-The year 2082 does not mark the beginning of the Second Heartland War, but instead a major escalation during it.
-The PAB-80LR is a glide bomb with a low radar cross section. Depending on its release speed and altitude, they can glide at subsonic speeds over long distances, which make them very efficient stand-off weapons.
-The fuse of a GPO-N thermobaric nuclear bomb is only a few seconds, but its radioactive residue can last for years.
-Turbopropellers, turbofans, and rotary turbine engines often have much lower engine signatures compared to their turbojet counterparts.
-The Darkreach's exceptionally powerful electronic warfare suite allows it to jam and defeat long-range radar missiles without requiring an accurate notch angle.
-The UH-90 Ibis is a medium size utility helicopter, with two contra-rotating coaxial rotors and a pair of ducted propellers. It can clear hot landing zones with an impressive gun- and missile-based secondary armarment.
-Construction, medical, survey, and repair nanomachines account for nearly 70 percent of all electronic devices and appliances as of
-Holding the Radial Menu key for one second will show the Radial Menu, which provides access to several actions related to your aircraft's components.
-Holding the Flight Assist key will toggle auto-hover in VTOL and STOVL aircraft.
-Weapons stored on external hardpoints will increase the Radar Cross Section (RCS) of an aircraft, which is detrimental to stealth.
-The EW-25 Medusa's internal laser is powerful enough to damage control surfaces, cripple engines, and start fuel fires.
-Nexus Industries manufactures a variety of civilian and military sensor systems.
-Due to powerful regional-span blanket electronic warfare technology, most radars must rely on their backup systems to detect targets, causing them to be susceptible to notching and direct jamming.
-Some utility aircraft, such as the VL-49 and UH-90, do not have ejection seats. Instead, the crew must bail out, which is best done safely at altitude.
-Vortex Ring State is a dangerous aerodynamic condition where a rotor disc stops producing lift due to ingesting its own downwash. It is best escaped by applying full power and moving laterally.
-Ignus Archipelago is situated on the Northwest Pacific Rim, featuring the prosperous city-state of Feldspar, various smaller islands and airbases, as well as the dormant volcanic cone of Ignus Minor.
-BDF and PALA ground vehicles fire red and green tracers respectively. Some independent vehicles fire yellow or white tracers instead.
-Funds donated during a match are split evenly between players on a team.
-Though not tactically useful, cruise missiles will attempt to chase airborne targets to the best of their ability.
-The PAB-250LR is a standard PAB-250 gravity bomb fitted with a range-extending glide kit, allowing it to reach distant targets in a cost-effective standoff role.
-Datalink systems can operate without satellite or direct-link connection thanks to advances in quantum entanglement storage technology.
-Disabling Flight Assist can allow many aircraft to perform advanced maneuvers, or crash immediately.
-Pressing the Toggle Nav Lights key will toggle all navigation lights, which is useful for forming up with wingmen or reducing light emissions.
-To be free is to be alone.
-The cargo bay of the VL-49 Tarantula can contain vehicles, containers, or ramp-launch weapon systems.
-Ventral Mount
-Outer Pylon
-Middle Pylon
-Inner Pylon
-12.7mm Gun
-Internal Gun
-PALA Matte Black
-Primeva Armed Liberation Alliance
-Tail
-SWP-1 | AAM-29 x2 (Stealth Pod)
-Auxiliary Bay
-27mm Autocannon DP
-KR-67A Ifrit
-Weapons Bay
-TA-30YH Compass
-Request this aircraft when available.
-Not available here
-PALAN Splinter Navy
-R6 Longsword
-MCP-112 Flare Pod
-ALM-C450
-AGM-200B Tusko
-This 500kg long range glide bomb is meant for standoff attacks against large buildings, using optical sensor for terminal guidance.
-27mm Autocannon Stealth
-27mm Autocannon HE
-27mm Autocannon AP
-This 27mm Autocannon is loaded with standard dual-purpose rounds, effective against both air and ground targets.
-RPM
-RD
-This 27mm Autocannon is loaded with high-explosive shells, suitable for engaging aircraft and buildings.
-This 27mm Autocannon is loaded with armor-piercing, shells suitable for engaging armored targets.
-Booting KR-67 Ifrit
-Time
-STALL WARNING
-AoA
-OVERSPEED
-LOWER GEAR
-FUEL
-AIRBRAKE
-THROTTLE
-Stability Assist <b>Enabled</b>
-Nav Lights <b>On</b>
-Weapon safety lock <b>Enabled</b>
+SFB-81
+EW-25
+KR-67
+VL-49
+FS-20
+FS-12
+A-19
+SAH-46
+UH-90
+A-30
+CI-22
+SPD
+HDG
+Booting CI-22 Cricket...
+AGR-24
+gMax
+gForce
+climbRate
+radarAlt
+Altitude
+Airspeed
+Stability Assist
+Enabled
+Weapon safety lock
 IR Flares
-HIGHWAY STRIP 1
-The Fire Suppression System will automatically contain engine fires, but a fuel fire outside the engine can spread and consume an aircraft.
-Utilizing afterburner significantly increases the ease of detection and tracking by IR missiles, which reduces the effectiveness of flares.
-The Laser Air Defense System (or LADS) turret mounted to HLT and MSV series trucks can intercept munitions within a 6500m radius with its 80kW pulse laser.
-It is widely believed that the widespread formation of flash-ice in the Eastern Atlantic was indirectly caused by the construction of the Northeastern Atlantic Turbine Array.
-Suppression of Enemy Air Defense (SEAD) missions use a combination of anit-radiation missiles, glide bombs, and electronic warfare to suppress and destroy radar units, surface-to-air missile launchers, and anti-aircraft guns.
-Ships can supply any type of munition to aircraft landing on them, thanks to advanced multimaterial volumetric 3D fabrication.
-Recent breakthroughs in fused silica crystal lens production technology has allowed for vastly more efficient lasers and widespread usage of directed energy weapons.
-Vehicles can assume a hull-down position using field entrenchments, significantly increasing their survivability to ground fire by reducing their exposure.
-Most BVR (Beyond-Visual Range) missiles are equipped with advanced artificial intelligence systems that prevent defeat via geometric manipulation such as cranking and pulling.
-To convince civilians to join or support the military, many nations' forces have adopted 'mascots', often in the form of anthropomorphic animal characters.
-The 20mm Rotary Turret is primarily designed for light ground strikes, but can be lethal to unsuspecting aircraft that get too close.
-Most internal cannons can be equipped with varying ammunition types, which are effective against different targets. When in doubt, dual-purpose, commonly denoted as DP, is often a well-rounded choice.
-Despite its low ordnance capacity and subsonic speed, the FQ-102 Hydra can still be deadly when deployed in swarms.
-The MBT-9 Spearhead is PALA's primary main battle tank, and is equipped with a 130mm main gun, an AT-28 anti-tank missile launcher, and a 20kW laser active protection system.
-QUIT MISSION
-SPECTATE
-SELECT FACTION
-PALA Desert Camo
-AOA
-PROP NOMINAL
-PITCH
-TURBINE NOMINAL
-POWER [KW]
-CNTR
-NAV
-Cleared to taxi to Runway
-Stability Assist <b>Enabled</b>\nWeapon safety lock <b>Enabled</b>\nCleared to taxi to Runway 34
-Taxi to Runway 34
+JAMMED
+Booting CI-22 Cricket
+Booting CI-22 Cricket.
+Booting CI-22 Cricket..
+Taxi to Runway
+VIEW
+VSI
 MIN
 MAX
 NEZ
 SHOOT
-Stability Assist <b>Disabled</b>
-BUILDINGS
-AIRCRAFT
-SHIPS
+Disabled
+FLYUP
+Radar Altitude
+Position
+pilot
+State
+Speed
+Incoming Missiles
+Current Target
+crashed
+ALT -
+REV
+You do not own this type of aircraft
+Buy SFB-81 Darkreach
+Funds
+Remain
+Contribute funds or vehicles to the war effort
+Number of warheads available to this faction
+BDF Forest Green
+30mm HE
+Valkyrie WH40k
+35mm AP
+Eagle-1
+BDF Gray Camo
+BDF Pixel Green
+Buy EW-25 Medusa
+Buy KR-67 Ifrit
+Buy VL-49 Tarantula
+Buy FS-20 Vortex
+Buy FS-12 Revoker
+Buy A-19 Brawler
+Buy SAH-46 Chicane
+Buy UH-90 Ibis
+Buy CI-22 Cricket

@@ -10,3 +10,4 @@ E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.csproj.Co
 E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearO.5A894298.Up2Date
 E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.dll
 E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.pdb
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.sourcelink.json
