@@ -1,0 +1,12 @@
+E:\NO\BepInEx Translation plugin\bin\Debug\net472\NuclearOptionChinese.dll
+E:\NO\BepInEx Translation plugin\bin\Debug\net472\NuclearOptionChinese.pdb
+E:\NO\BepInEx Translation plugin\bin\Debug\net472\Newtonsoft.Json.dll
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.csproj.AssemblyReference.cache
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\MyPluginInfo.cs
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.GeneratedMSBuildEditorConfig.editorconfig
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.AssemblyInfoInputs.cache
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.AssemblyInfo.cs
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.csproj.CoreCompileInputs.cache
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearO.5A894298.Up2Date
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.dll
+E:\NO\BepInEx Translation plugin\obj\Debug\net472\NuclearOptionChinese.pdb
