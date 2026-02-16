@@ -71,6 +71,8 @@ namespace NuclearOptionChinese
         private static readonly Regex TaxiToSentenceRegex = new Regex(@"^(Cleared to taxi to|Taxi to)\s+(runway\s+\d{1,2}|(?:\S+\s+){1,2}\S+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         // 21. Turret Control 复合句式
         private static readonly Regex TurretControlRegex = new Regex(@"^(.*?)\s+(Turret|Turrent)\s+(under\s+pilot\s+control)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 22. 技术代码过滤 (如 R0, R12, A146, A6 V20)
+        private static readonly Regex TechnicalCodeNoiseRegex = new Regex(@"^[RAVHM]\d+(\s+[RAVHM]\d+)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static void LoadTranslations()
         {
@@ -351,6 +353,9 @@ namespace NuclearOptionChinese
         {
             if (string.IsNullOrWhiteSpace(text)) return text;
             if (HasChinese(text)) return text;
+
+            // --- B0. 噪音判定 (完全忽略的技术代码等) ---
+            if (IsPartNoise(text.Trim())) return text;
 
             // --- B1. 特殊预处理：Turret Control 模式 ---
             var turretMatch = TurretControlRegex.Match(text.Trim());
@@ -692,6 +697,9 @@ namespace NuclearOptionChinese
         {
             if (!IsLoggingMissing || string.IsNullOrEmpty(text)) return;
 
+            // 过滤特定物体的文本记录 (如动态玩家名)
+            if (!string.IsNullOrEmpty(scope) && scope.Equals("MAP_PlayerName", System.StringComparison.OrdinalIgnoreCase)) return;
+
             // 特殊处理 Version：剥离版本号，只保留文本部分进入 Missing
             if (text.IndexOf("version", System.StringComparison.OrdinalIgnoreCase) >= 0)
             {
@@ -782,6 +790,7 @@ namespace NuclearOptionChinese
             if (p.Length <= 1) return true;
             if (ValueUnitNoiseRegex.IsMatch(p)) return true;
             if (SpecialTagNoiseRegex.IsMatch(p)) return true;
+            if (TechnicalCodeNoiseRegex.IsMatch(p)) return true;
             if (CoordinateNoiseRegex.IsMatch(p)) return true;
             if (PureSymbolsRegex.IsMatch(p)) return true;
             if (ExplosiveNoiseRegex.IsMatch(p)) return true;

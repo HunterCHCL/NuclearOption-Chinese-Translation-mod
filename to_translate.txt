@@ -1,144 +1,281 @@
-The SAH-46 Chicane retains a traditional attack helicopter configuation while incorporating upgrades that keep it a formidable presence on the battlefield of the late 21st Century. Cutting edge stealth technology allows the Chicane to conduct pop-up attacks from behind terrain and disappear from radar without a trace. Cutting edge stealth technology allows the Chicane to conduct pop-up attacks from behind terrain and disappear from radar without a trace.
-x
-Unit Name
-BurnTime
-x
-x
-x
-AA-nn
-HUD
-TRUCK
-LCV
-IR
-AIR
-GND
-MBT
-BLD
-AAA
-Time
-Duration
-Conventional level
-AMMO
-SPD
-HDG
-ALT -
-x
-Hunter-C2H4Cl
-T/A-30
-Time
-AoA
-IR Flares
-JAMMED
-Booting
-GUN
-IR
-MIN
-MAX
-NEZ
-SHOOT
-MAX
-RESTART MISSION
-HIDE UI
-RESUME MISSION
-SCORE
-Hunter-C2H4Cl
-AGM-48
-ARAD-116
-PALA Navy Splinter
-EW-1 Medusa
-NOZZLE
-Auto Vectoring
-Nav Lights
-120kw Laser
-CAPACITOR
-EW
-NOMINAL
-ENGINE RIGHT
-THRUST
-TWR
-HEAT
-MODE
-GEAR
-RADAR
-FLIGHT CONTROL
-ENGINE
-ARMED
-WEAPON
-L.TIP
-L.PYLON
-BAY
-R.PYLON
-R.TIP
-RADOME
-Vectoring Mode
-set to
-Takeoff
-Forward
-JAMMER POD
-ARAD-116
-EW
-A2A
-Radar Jammer
-Radar Disarmed
-Radar Armed
-Auto Hover
-MODE
-IR
-GRID
-RNG
-HDG
-SPD
-JAMMED
-ETA
-RNG
-OUT OF RANGE
-AJ
-COLOR
-Missile
-IR
-Annex Class Carrier
-Reverse
-SPD
-ALT
-LANDING CAM
-PALA Navy
-PAB-80LR
-PAB-250LR
-PAB-250
-PAB-125
-GPO-500
+Today we're going to be practicing taxiing to the runway threshold and taking off. To begin, increase the throttle to 20%.
+Default Throttle Controls are Shift
+Control on keyboard or Bumpers on controller.
 AGM-68
-ARAD-116
-Cleared to taxi to
-Runway
-Taxi to
-Runway
-GUN
-ENGINE LEFT
-AFTERBURNER
-Current
-PAB-80LR
-REL
-HDG
-TOO CLOSE
-ALT
-intercepted
-sank
-NO LOCK
-INOPERABLE
-shot down
-ALT
-Acceleration
-BOMB
-PAB-250
-HE
-Matte Black
-ALND-4
-ENG R
-ENG L
-Annex Class Carrier
-OUT OF ARC
+GUN 25MM ROT
+Cursor
+AA-nn
+Taxi
+Taxi
 Hunter-C2H4Cl
-RAM-45
-holding
-Annex Class Carrier
+Press a key to assign it to Brake Axis -. Modifier keys may also be used. To assign a modifier key alone, hold it down for 1 second.
+Add
+Replace
+ESC is already in use. Do you want to replace it? You may also choose to add the assignment anyway.
+Assignment Conflict
+Control
+Orbit
+FOV
+Cockpit
+Flyby
+Chase
+Free
+INERTIA
+STATES
+TIME
+Brakes
+Good, now tap the wheelbrake
+Default B on keyboard or Y on controller
+to keep your plane from exceeding
+h. We are approaching a turn which will require you stay slow.
+Use the rudder to steer
+Default
+Mouse or Q
+E, or Left
+Right Trigger
+As we approach the runway threshold, we will make another left turn to line up the plane on the runway.
+Centered on runway
+Now turn left and keep the plane centered on the runway.
+Full Throttle
+Full Throttle
+Increase throttle to 100%, and when speed is above
+h, gradually pull back on the stick to lift off.
+Default Mouse or W
+S on keyboard, or left stick on controller
+Take off
+Take off
+Successful Takeoff
+Great job, we're in the air! If you haven't already, you should now retract your landing gear.
+Default G key, or D-pad down
+Hunter-C2H4Cl
+Prepare for Landing
+The airstrip you'll be landing at is directly infront of you. Start by reducing your throttle to zero
+this will deploy the airbrake.
+Try to bring your speed down to at most
+before the next waypoint.
+Use Airbakes
+Use Airbakes
+Deploy Gear
+Lower your landing gear by pressing Toggle Gear
+G or D-pad down
+This will also lower your flaps to landing position
+you will notice a change in handling.
+Deploy Gear
+Landing Assist
+Next
+Lowering your gear has also activated the landing assist on the HUD.
+It has two features
+The Glideslope indicator, and the Angle of Attack
+AoA
+Indexer
+Touch Down
+Touch Down
+Glideslope indicator
+The line coming out of the runway with a small circle at the end is your glideslope indicator.
+As you glide, steer so that your velocity vector envelops the small circle at the end of the glideslope.
+Angle of Attack Indexer
+On the left side of the HUD is your angle of attack indexer. Green is too slow, yellow is on speed, and red is too fast.
+While steering, adjust the throttle to keep the AoA indexer showing a yellow circle. Continue until you touch down.
+Wheel Brakes
+Hold down the wheelbrake button
+Default B on keyboard or Y on gamepad
+to bring the plane to a stop.
+Successful Landing
+Well done. Normally, you wouldn't come to a complete stop, as it is important to keep the runway clear.
+Use one of the two marked ramps to exit the runway.
+Landing Complete
+When you come to a stop at an airbase, you can disembark the plane using the Eject key
+This will return your plane to your inventory. This will be important later.
+Helmet Mounted Display
+Today you will learn how to target and fire on enemy units.
+Your HMD will highlight all units known to either your aircraft's sensors or the datalink system.
+Observe the various units highlighted in front of you.
+REL -
+HDG -
+SPD -
+ALT -
+TRK
+Target Designation
+Anchored to the center of your view, there is a target designator diamond, which will become visible when you look around.
+You can select targets by looking at a unit, and pressing the Target Select button
+Enter, or X on controller
+If you are using virtual joystick
+mouse flight
+, you will need to hold the freelook button
+to look around.
+If you are using a controller, you should make sure virtual joystick is disabled in options, and use the right stick to look around.
+You can add multiple targets to your designation.
+To remove the last selected target, press Target Cancel
+Default Backspace, or B on controller
+To clear the designation entirely, hold the button down.
+Take some time to practice selecting and deselecting targets. You will need to be proficient at this, and be able to do it quickly under pressure in order to be truly effective in combat.
+When you are ready to start shooting, fly to the marked waypoint.
+Waypoint
+Waypoint
+AGM-48
+Weapon Usage
+Four new contacts
+enemy trucks
+are present at bearing 060.
+Press the Next Weapon button
+Default Tab key, or D-pad right
+until your AGM-48s are selected, and then designate the four enemy trucks as targets and fire on them.
+A single trigger pull
+Defaults
+Spacebar, Left Mouse Button, or A on Controller
+will release one munition per designated target.
+Shoot when TGT is within MIN and MAX on the range indicator.
+All your current weapons are fire and forget.
+Destroy Trucks
+Destroy Trucks
+Aerial Targets
+Good job
+the trucks are destroyed.
+The process for targeting and firing on aerial targets is the same, however, you should make sure you have the right weapon selected.
+Different weapons have different intended targets. If targets are ever overlapping, target selection will be biased towards suitable targets for the currently selected weapon.
+Switch weapons to your MMR-S3s, and find and destroy the plane approaching from bearing 180.
+REL
+Complete
+Excellent work. This concludes Targeting and Weapons.
+Infrared Countermeasures
+Missiles that see via the infrared spectral band are a common battlefield threat.
+The signature of your aircraft is provided to them by the heat that operating it produces.
+You can defeat IR missiles by using flares
+intense heat signatures
+that can either distract or dazzle the seeker head.
+Every aircraft in the arsenal has flares.
+Oh.
+In front of you is a Linebreaker SAM, which fires IRM-S1s. It has an effective range of
+To pass the training, you will have to fly within half that distance from it, and then return to this point alive.
+SAM IR
+Flare Usage
+Make sure flares are selected and visible in the top right of the HMD
+Default V key or D-pad up to change countermeasure type
+When fired on, press and hold the Countermeasure button.
+Default X key, or Y button on controller
+Flare effectiveness is determined by your aspect to the missile, as well as your engine output. Lower your throttle and turn the plane side-on to the threat to get the most out of your flares. Try not to get fired on from behind, or you may need to expend the whole cartridge.
+Pre-flaring
+releasing flares if you suspect you're about to be fired on
+is the most effective use of flares, as it can prevent the launching platform from obtaining a lock.
+Try releasing flares periodically
+once or twice a second
+when in danger.
+Escape
+That's close enough
+now leave the SAM's area of effect and return to where you started. Because you'll be showing it your exhaust as you fly away, it is especially important that you reduce your throttle to reduce your signature compared to that of your flares.
+Evasion Complete
+Well done, you've entered the IR SAM's area of effect and come back alive.
+This completes the training, but if you still have flares left, feel free to resume and continue tempting fate.
+Enemy Radar
+Positioned on a small island
+in front of you are two trucks.
+One tows a launch system for R9 Stratolance missiles, while the other carries a connected radar that provides guidance for them.
+The emission from the radar is detectable by your radar recevier, and the direction to the radar is indicated by an orange line on the minimap. As radar based detection relies on bouncing a signal off of something, you can detect radar emissions at approximately double the range of a radar system.
+Radar Range
+Having received an emission doesn't necessarily mean you have been spotted
+it just means you have detected that a radar is being used.
+In this instance, however, you have definitely been spotted. The radar truck has a range of approximately 40km.
+The radar will now be used to guide a Stratolance missile into you.
+Notching
+The bright light rising up off of the island is a Stratolance missile. You have been fired at.
+As you are high in the air and well within the range of the missile, the only way to survive this encounter is by executing a notch.
+Notching, in short, can be described as flying perpendicular to the enemy radar.
+Doing this removes the doppler shift from your return frequencies, making it harder for the radar to track you.
+Our goal will be to get to cover behind the mountains. Start by breaking right, diving toward the water's surface, and getting the incoming radar line to stay at your 9 o'clock.
+You should also select your jammer by pressing Next Countermeasures
+Default V key or D-pad up
+Escape
+Escape
+Defending
+Now that the missile is close enough to be picked up and analysed by your sensors, a notch guide is provided both on the HUD and minimap.
+The yellow dotted line indicates the ideal heading to maintain in order to perform a notch.
+Notching alone is rarely enough to defeat a missile, especially in less stealthy aircraft.
+While in the notch envelope however, is the ideal time to use the jammer. The lack of doppler shifted returns, combined with the jammer noise, should mask you from the radar.
+The tracking must be broken for at least 3 seconds for the missile to not re-acquire.
+Note that even when the missile loses track, it will still head for the last calculated intercept point. You must take care to evade whilst not exiting the notch.
+The jammer's effectiveness is proportional to remaining capacitor charge. It is best used in 2-3 second bursts per missile.
+Use the jammer
+Default X key, or Y button
+while notching to escape toward the coast.
+Escaped Successfully
+Congratulations
+you've successfully avoided radar missiles in a worst case scenario.
+Ideally, you can avoid these missiles by breaking line of sight of the radar, or by hugging the surface as tightly as possible to stay within ground clutter. Feel free to resume and practice this.
+Hunter-C2H4Cl​
+PAB-250
+Search For Convoy
+Search For Convoy
+The BDF is on the run, and trying to evacuate as much fuel from the area as they can.
+A large convoy of fuel trucks was last spotted about 5km north of Dustbowl. We're headed to the convoy's last known position.
+Your aircraft's visual sensors can detect ground vehicles within a range of 6km. We are to locate and destroy the convoy.
+Convoy has been spotted. Lets get to work.
+Destroy Vehicles
+Destroy Vehicles
+NOT LASED
+RNG -
+Excellent work, every convoy vehicle has been destroyed.
+GUN 20MM POD
+A BDF engineer team is currently trying to recover a pair of tanks that were immobilised in yesterday's fighting.
+Our task is to interrupt them. They are without any air defence, and should be easy pickings.
+Form up on me and I'll lead us to the target.
+Headed to the target now.
+We're going to open with bombs. Switch weapons to your PAB-250s, and start a shallow climb to
+The vehicles should be targetable now. Select them as targets.
+MBT
+Drop the bombs when the countdown reaches zero and the arrows on your HUD converge.
+Good hits. We'll finish off any remaining vehicles with our guns. Remember to pull up. Don't get so fixated on shooting that you forget the terrain exists.
+... and remember, they can still shoot back. Don't make it easy for them.
+Mission Failed
+RDR
+AAAHGRPL-%^$*&
+Good shooting. That's the last of them. We should clear out before any response comes our way.
+Return To Base
+Return To Base
+Weapons Rearmed by HLT Munitions Truck
+Ingress Via Mountains
+Ingress Via Mountains
+PALA has recently taken receipt of several R9 Stratolance batteries to prevent us from carrying out bombing raids.
+Today we'll be destroying all of them, and carrying out a bombing raid.
+Once you've taken off, follow the highway south through the mountains.
+We'll be targeting a supply point for the R9 systems as well as several active batteries. Staying low and fast will be key.
+The first target area is the supply depot just over this crest. We expect no significant resistance here.
+Destroy Supply Point
+Destroy Supply Point
+SAM R
+AMMO
+Good work. Next up is the dangerous bit. Continue along the highway south, use the foothills as cover.
+Destroy SAM Site
+Destroy SAM Site
+Work quickly
+it looks like PALA is scrambling jets from the target airfield.
+SAM Site 1 is neutralised.
+IFV
+SAM Site 2 is neutralised.
+Hunter-C2H4Cl
+INPUTS
+Toggle
+ROT
+All enemy R9 systems are neutralised. Head back to the ships to re-arm.
+Rendezvous with ships
+Rendezvous with ships
+BLD
+Land on the back of one of the corvettes to re-arm. You will be assisting the attack on the airfield.
+Resupply
+Resupply
+Mission Failed, no spawn points available
+was rescued
+Weapons Rearmed by Shard Class Corvette
+Targets marked. Bombers are now inbound.
+Assist Attack on Airfield
+Assist Attack on Airfield
+T/A-30
+Compass
+Flares rearmed by Shard Class Corvette
+collapsed
+HGR-H
+SPAAG
+LOOK AT
+Strafing
+HPAD
+HGR-M
+Excellent work. The enemy airfield has been razed once again.

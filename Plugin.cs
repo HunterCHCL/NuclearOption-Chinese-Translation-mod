@@ -120,7 +120,7 @@ namespace NuclearOptionChinese
             }
 
             // 第二行：开关缺失文本记录
-            string logText = Translator.IsLoggingMissing ? "正在记录缺失文本" : "已停止记录缺失文本";
+            string logText = Translator.IsLoggingMissing ? "停止记录缺失文本" : "开始记录缺失文本";
             GUIContent logContent = new GUIContent(logText, "每扫描一次就会增量记录未翻译的文本并输出到mod所在文件夹里的missing.json里");
             if (GUILayout.Button(logContent))
             {
