@@ -17,44 +17,43 @@ def create_missing_cn():
         return
 
     try:
-        # 1. 读取原文和翻译后的文本
-        with open(txt_original, 'r', encoding='utf-8') as f:
-            originals = [line.strip() for line in f if line.strip()]
-        
+        # 1. 读取翻译后的文本 (按行读取)
         with open(txt_translated, 'r', encoding='utf-8') as f:
-            translations = [line.strip() for line in f if line.strip()]
-
-        if len(originals) != len(translations):
-            print(f"警告: 行数不匹配！原文 {len(originals)} 行，翻译 {len(translations)} 行。")
-            return
-
-        # 创建映射表 (处理 \n -> 换行符)
-        mapping = {}
-        for orig, tran in zip(originals, translations):
-            key = orig.replace('\\n', '\n')
-            val = tran.replace('\\n', '\n')
-            mapping[key] = val
+            translations = [line.strip().replace('\\n', '\n') for line in f if line.strip()]
 
         # 2. 读取原始 missing.json
         with open(missing_json_path, 'r', encoding='utf-8') as f:
             missing_data = json.load(f)
 
-        # 3. 替换翻译
-        new_data = {}
-        updated_count = 0
+        # 3. 按照当时 export 的逻辑，找出所有需要回填的 Key
+        # 顺序必须与 export 时完全一致
+        keys_to_fill = []
         for key, value in missing_data.items():
-            if key in mapping:
-                new_data[key] = mapping[key]
-                updated_count += 1
-            else:
-                new_data[key] = value
+            default_value = key
+            if key.startswith("[") and "]" in key:
+                parts = key.split("]", 1)
+                if len(parts) > 1:
+                    default_value = parts[1]
+            
+            if value == default_value:
+                keys_to_fill.append(key)
 
-        # 4. 写入新文件 missingCN.json
+        if len(keys_to_fill) != len(translations):
+            print(f"错误: 待回填的条目数({len(keys_to_fill)})与翻译文件行数({len(translations)})不匹配！")
+            return
+
+        # 4. 按顺序回填翻译
+        updated_count = 0
+        for key, trans_val in zip(keys_to_fill, translations):
+            missing_data[key] = trans_val
+            updated_count += 1
+
+        # 5. 写入新文件 missingCN.json
         with open(output_json_path, 'w', encoding='utf-8') as f:
-            json.dump(new_data, f, ensure_ascii=False, indent=2)
+            json.dump(missing_data, f, ensure_ascii=False, indent=2)
         
         print(f"成功生成 {output_json_path}")
-        print(f"共处理 {len(missing_data)} 条文本，其中 {updated_count} 条已应用新翻译。")
+        print(f"共回填 {updated_count} 条翻译。")
 
     except Exception as e:
         print(f"处理失败: {str(e)}")

@@ -1,115 +1,144 @@
-Hunter-C2H4Cl​
+The SAH-46 Chicane retains a traditional attack helicopter configuation while incorporating upgrades that keep it a formidable presence on the battlefield of the late 21st Century. Cutting edge stealth technology allows the Chicane to conduct pop-up attacks from behind terrain and disappear from radar without a trace. Cutting edge stealth technology allows the Chicane to conduct pop-up attacks from behind terrain and disappear from radar without a trace.
+x
+Unit Name
+BurnTime
+x
+x
+x
 AA-nn
-TA30
-RDR
+HUD
 TRUCK
 LCV
-AAA
-MBT
-AMMO
-TARGET SELECTION
+IR
 AIR
-RESET
-FILTER
 GND
+MBT
 BLD
-IR SAM
-MSL
-SHP
-CLEAR
-TARGETS
-APC
-TBM
-R SAM
-TARGET
-TOOLTIP
-TINY
-INFO
-AIRBASE
-LARGE
-MAP OPTIONS
-ICONS
-LABELS
-ORDERS
-PILOT
-SMALL
-MARKERS
-JAMMING
-MANPOWER
-VALUE
-LOSSES
-RESERVES
-PLAYERS
-NON-NUCLEAR
-Rank
-Hunter-C2H4Cl
-SFB-81
-EW-25
-KR-67
-VL-49
-FS-20
-FS-12
-A-19
-SAH-46
-UH-90
-A-30
-CI-22
+AAA
+Time
+Duration
+Conventional level
+AMMO
 SPD
 HDG
-Booting CI-22 Cricket...
-AGR-24
-gMax
-gForce
-climbRate
-radarAlt
-Altitude
-Airspeed
-Stability Assist
-Enabled
-Weapon safety lock
+ALT -
+x
+Hunter-C2H4Cl
+T/A-30
+Time
+AoA
 IR Flares
 JAMMED
-Booting CI-22 Cricket
-Booting CI-22 Cricket.
-Booting CI-22 Cricket..
-Taxi to Runway
-VIEW
-VSI
+Booting
+GUN
+IR
 MIN
 MAX
 NEZ
 SHOOT
-Disabled
-FLYUP
-Radar Altitude
-Position
-pilot
-State
-Speed
-Incoming Missiles
-Current Target
-crashed
-ALT -
-REV
-You do not own this type of aircraft
-Buy SFB-81 Darkreach
-Funds
-Remain
-Contribute funds or vehicles to the war effort
-Number of warheads available to this faction
-BDF Forest Green
-30mm HE
-Valkyrie WH40k
-35mm AP
-Eagle-1
-BDF Gray Camo
-BDF Pixel Green
-Buy EW-25 Medusa
-Buy KR-67 Ifrit
-Buy VL-49 Tarantula
-Buy FS-20 Vortex
-Buy FS-12 Revoker
-Buy A-19 Brawler
-Buy SAH-46 Chicane
-Buy UH-90 Ibis
-Buy CI-22 Cricket
+MAX
+RESTART MISSION
+HIDE UI
+RESUME MISSION
+SCORE
+Hunter-C2H4Cl
+AGM-48
+ARAD-116
+PALA Navy Splinter
+EW-1 Medusa
+NOZZLE
+Auto Vectoring
+Nav Lights
+120kw Laser
+CAPACITOR
+EW
+NOMINAL
+ENGINE RIGHT
+THRUST
+TWR
+HEAT
+MODE
+GEAR
+RADAR
+FLIGHT CONTROL
+ENGINE
+ARMED
+WEAPON
+L.TIP
+L.PYLON
+BAY
+R.PYLON
+R.TIP
+RADOME
+Vectoring Mode
+set to
+Takeoff
+Forward
+JAMMER POD
+ARAD-116
+EW
+A2A
+Radar Jammer
+Radar Disarmed
+Radar Armed
+Auto Hover
+MODE
+IR
+GRID
+RNG
+HDG
+SPD
+JAMMED
+ETA
+RNG
+OUT OF RANGE
+AJ
+COLOR
+Missile
+IR
+Annex Class Carrier
+Reverse
+SPD
+ALT
+LANDING CAM
+PALA Navy
+PAB-80LR
+PAB-250LR
+PAB-250
+PAB-125
+GPO-500
+AGM-68
+ARAD-116
+Cleared to taxi to
+Runway
+Taxi to
+Runway
+GUN
+ENGINE LEFT
+AFTERBURNER
+Current
+PAB-80LR
+REL
+HDG
+TOO CLOSE
+ALT
+intercepted
+sank
+NO LOCK
+INOPERABLE
+shot down
+ALT
+Acceleration
+BOMB
+PAB-250
+HE
+Matte Black
+ALND-4
+ENG R
+ENG L
+Annex Class Carrier
+OUT OF ARC
+Hunter-C2H4Cl
+RAM-45
+holding
+Annex Class Carrier
