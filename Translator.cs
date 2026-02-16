@@ -10,7 +10,7 @@ namespace NuclearOptionChinese
     public static class Translator
     {
         public static bool IsEnabled = true; // 翻译总开关
-        public static bool IsLoggingMissing = true; // 缺失文本记录开关
+        public static bool IsLoggingMissing = false; // 缺失文本记录开关
         // public static float FontSizeScale = 1.0f; // 字体缩放比例 (1.0 = 100%) (暂时注释)
         
         private static Dictionary<string, string> _translations = new Dictionary<string, string>(System.StringComparer.OrdinalIgnoreCase);
@@ -43,16 +43,16 @@ namespace NuclearOptionChinese
         private static readonly Regex PureSymbolsRegex = new Regex(@"^[+\-0-9\s./()\[\]%#@&*|<>—]+$", RegexOptions.Compiled);
         // 6. 版本号号过滤正则 (匹配: 文本 + version + 可选空格 + 数字.数字.数字)
         private static readonly Regex VersionFilterRegex = new Regex(@"^(.*?version.*?)\s*(\d+\.\d+\.\d+.*)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        // 7. 单词+数字过滤正则 (匹配: 纯单词文本 + 空格 + 数字)
-        private static readonly Regex WordNumberRegex = new Regex(@"^([a-zA-Z\s]+)\s+(\d+)$", RegexOptions.Compiled);
+        // 7. 单词+数字过滤正则 (匹配: 纯单词文本 + 空格 + 可选正负号 + 数字/小数)
+        private static readonly Regex WordNumberRegex = new Regex(@"^([a-zA-Z\s]+)\s+([+-]?\d+(?:\.\d+)?)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         // 8. 爆炸物载荷过滤正则 (匹配: 数字 + kg/kt + TNT)
         private static readonly Regex ExplosiveNoiseRegex = new Regex(@"^\d*[\d.]+\s*(kg|kt)\s*tnt$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         // 9. 末尾数量过滤 (匹配: 文本 + 空格 + x + 数字)
         private static readonly Regex EndQuantityRegex = new Regex(@"^(.*?)\s+x\d+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        // 10. 跑道动态信息过滤 (升级版: 匹配 文本 + Runway + 数字 + 随后的距离等内容)
+        // 10. 跑道动态信息过滤 (升级版:匹配 文本 + Runway + 数字 + 随后的距离等内容)
         private static readonly Regex EndRunwayRegex = new Regex(@"^(.*?\brunway)\s+\d{1,2}.*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        // 11. 单词 + 数值单位过滤 (匹配: 文本 + 空格 + 数字 + 单位)
-        private static readonly Regex EndValueUnitRegex = new Regex(@"^(.*?)\s+\d*[\d.]+\s*([a-zA-Z°%]{1,3})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        // 11. 单词 + 数值单位过滤 (匹配: 文本 + 空格 + 可选正负号 + 数字 + 单位)
+        private static readonly Regex EndValueUnitRegex = new Regex(@"^(.*?)\s+[+-]?\d*[\d.]+\s*([a-zA-Z°%]{1,3})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         // 12. 距离+方向指示符过滤 (如 "434m<", "22km<")
         private static readonly Regex DistanceIndicatorNoiseRegex = new Regex(@"^\d*[\d.]+\s*(m|km)\s*<$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         // 13. 纯数值 + 单位模式 (如 "500 rounds", "10 knots")
@@ -603,25 +603,17 @@ namespace NuclearOptionChinese
                 // (如果 unit 是 "m" 这种噪音，就不会录入缺失)
             }
 
-            // 7. Score + 小数 (Score 123.45678)
+            // 7. Score + 小数 (Score 123.456)
             var sMatch = ScoreNumberRegex.Match(text);
             if (sMatch.Success)
             {
                 handled = true;
-                string prefix = sMatch.Groups[1].Value.Trim(); // 提取 "Score"
+                string prefix = sMatch.Groups[1].Value; // "Score "
+                string trimmedPrefix = prefix.Trim();  // "Score"
+                string suffix = text.Substring(prefix.Length); // "123.456"
 
-                // 优先 Scoped
-                if (!string.IsNullOrEmpty(scope))
-                {
-                    if (_scopedDictionaries.TryGetValue(scope, out var sDict) && sDict.TryGetValue(prefix, out string st))
-                        return text.Replace(prefix, st);
-                    if (_translations.TryGetValue($"[{scope}]{prefix}", out string st2))
-                        return text.Replace(prefix, st2);
-                }
-
-                if (_translations.TryGetValue(prefix, out string trans)) return text.Replace(prefix, trans);
-                TryRecordMissing(prefix, scope);
-                return text;
+                string trans = TranslateToken(trimmedPrefix, scope);
+                return trans + " " + suffix;
             }
 
             // 8. Booting + 内容 + 多个句号 (Booting FS-20 Vortex...)
@@ -715,6 +707,13 @@ namespace NuclearOptionChinese
             if (wnMatch.Success)
             {
                 text = wnMatch.Groups[1].Value.Trim();
+            }
+
+            // 特殊处理 单词 + 数值单位：剥离
+            var evuMatch = EndValueUnitRegex.Match(text);
+            if (evuMatch.Success)
+            {
+                text = evuMatch.Groups[1].Value.Trim();
             }
 
             // 特殊处理 单词 + 加号数字：剥离
