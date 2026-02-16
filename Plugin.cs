@@ -12,11 +12,11 @@ namespace NuclearOptionChinese
         private Harmony _harmony;
         private float _lastSaveTime = 0;
         private float _lastScanTime = 0;
+        private float _scanInterval = 1.0f; 
 
         // GUI 相关
         private bool _showGui = false;
         private Rect _windowRect = new Rect(20, 20, 280, 220); 
-        private float _scanInterval = 0.2f; // 默认 0.2  秒一次
 
         private void Awake()
         {
@@ -34,12 +34,12 @@ namespace NuclearOptionChinese
                 // Apply Harmony patches
                 _harmony = new Harmony("com.yourname.nuclearoption.chinese");
                 _harmony.PatchAll();
+                Logger.LogInfo("Harmony patches applied.");
 
                 // 注册场景加载事件
                 UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, mode) => {
-                    Logger.LogInfo($"Scene loaded: {scene.name}. Scanning for text...");
-                    GameObject go = new GameObject("ScanTrigger");
-                    go.AddComponent<ScanTrigger>();
+                    Logger.LogInfo($"Scene loaded: {scene.name}. Dispatching immediate scan...");
+                    ScanAllText();
                 };
             }
             catch (System.Exception ex)
@@ -50,20 +50,6 @@ namespace NuclearOptionChinese
             Logger.LogInfo("=== Plugin Initialization Finished ===");
         }
 
-        private class ScanTrigger : MonoBehaviour
-        {
-            private int frames = 0;
-            void Update()
-            {
-                frames++;
-                if (frames > 2)
-                {
-                    ((Plugin)FindObjectOfType<Plugin>())?.ScanAllText();
-                    Destroy(gameObject);
-                }
-            }
-        }
-
         private void Update()
         {
             // F11 切换 GUI
@@ -72,8 +58,8 @@ namespace NuclearOptionChinese
                 _showGui = !_showGui;
             }
 
-            // 使用 unscaledTime 确保即使在游戏暂停时周期扫描也生效
-            if (Time.unscaledTime - _lastScanTime > _scanInterval) 
+            // 保持一个中等频率的扫描 (1秒一次)，作为对 Hook 漏掉情况的补偿
+            if (Time.unscaledTime - _lastScanTime > 1.0f) 
             {
                 if (Translator.IsEnabled) ScanAllText();
                 _lastScanTime = Time.unscaledTime;
@@ -145,9 +131,8 @@ namespace NuclearOptionChinese
 
             GUILayout.Space(10);
 
-            // 第四行：扫描频率控制
-            GUILayout.Label($"自动扫描频率: {_scanInterval:F1}s");
-            _scanInterval = GUILayout.HorizontalSlider(_scanInterval, 0.2f, 1.5f);
+            GUILayout.Label($"后台自动扫描频率 (秒): {_scanInterval:F1}");
+            _scanInterval = GUILayout.HorizontalSlider(_scanInterval, 0.5f, 5.0f);
 
             GUILayout.Space(10);
 

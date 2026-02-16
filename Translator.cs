@@ -265,6 +265,9 @@ namespace NuclearOptionChinese
                 return text;
             }
 
+            // 1. 如果文本已经包含中文（通常代表已经翻译过了），直接返回以优化性能
+            if (HasChinese(text)) return text;
+
             // 如果有作用域，多级查询优先于全局
             bool isForceScoped = !string.IsNullOrEmpty(scope) && _forceScopedNames.Contains(scope);
 
